@@ -24,3 +24,4 @@ yarn-error.log*
 
 llave.json
 api_key.py
+credentials.tar.gz
