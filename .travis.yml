@@ -3,12 +3,16 @@ sudo: required
 services:
 - docker
 before_install:
+- openssl aes-256-cbc -K $encrypted_ebd7a1412677_key -iv $encrypted_ebd7a1412677_iv
+  -in llave.json.enc -out llave.json -d
 - openssl aes-256-cbc -K $encrypted_4400f5eddadb_key -iv $encrypted_4400f5eddadb_iv
-  -in llave.json.enc -out /tmp/llave.json -d
+  -in llave.json.enc -out llave.json -d
 - docker build -t cpinochet/docker-react -f Dockerfile.dev .
 script:
 - docker run -e CI=true cpinochet/docker-react npm run test
 deploy:
   provider: gae
-  keyfile: /tmp/llave.json
+  keyfile: llave.json
   project: hopeful-vim-285617
+  on:
+    all_branches: true
