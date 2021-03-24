@@ -12,6 +12,7 @@ FROM google/cloud-sdk:alpine
 WORKDIR '/app'
 COPY --from=0 /app/build /app
 COPY . .
-RUN gcloud auth activate-service-account --key-file llave.json
-RUN gcloud config set project hopeful-vim-285617
-RUN gcloud -q app deploy app.yaml --no-promote
+RUN sh tes.sh
+# RUN gcloud auth activate-service-account --key-file llave.json
+# RUN gcloud config set project hopeful-vim-285617
+# RUN gcloud -q app deploy app.yaml --no-promote
