@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 gcloud auth activate-service-account --key-file llave.json
 gcloud config set project hopeful-vim-285617
-gcloud -q app deploy app.yaml --no-promote
+gcloud -q --verbosity=info app deploy --no-promote
+exit 0
