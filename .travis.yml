@@ -27,7 +27,8 @@ install:
 script:
 - docker run -e CI=true cpinochet/docker-react npm run test
 # Deploy the app
-- gcloud -q app deploy app.yaml --promote
+- docker-compose build
+# - gcloud -q app deploy app.yaml --no-promote
 # deploy:
 #   provider: gae
 #   keyfile: llave.json
