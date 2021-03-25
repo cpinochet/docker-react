@@ -10,6 +10,20 @@ env:
 # Make sure gcloud command is on our PATH and the App Engine SDK is in the Python path
 - GAE_PYTHONPATH=${HOME}/.cache/google_appengine PATH=$PATH:${HOME}/google-cloud-sdk/bin PYTHONPATH=${PYTHONPATH}:${GAE_PYTHONPATH} CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
+# - openssl aes-256-cbc -K $encrypted_d80a2d296111_key -iv $encrypted_d80a2d296111_iv
+#   -in credentials.tar.gz.enc -out credentials.tar.gz -d
+# # If the SDK is not already cached, download it and unpack it
+# - if [ ! -d ${HOME}/google-cloud-sdk ]; then
+#      curl https://sdk.cloud.google.com | bash;
+#   fi
+# - tar -xzf credentials.tar.gz
+# - mkdir -p lib
+- docker build -t cpinochet/docker-react -f Dockerfile.dev .
+install:
+# Set the correct project to deploy to
+script:
+- docker run -e CI=true cpinochet/docker-react npm run test
+before_deploy:
 - openssl aes-256-cbc -K $encrypted_d80a2d296111_key -iv $encrypted_d80a2d296111_iv
   -in credentials.tar.gz.enc -out credentials.tar.gz -d
 # If the SDK is not already cached, download it and unpack it
@@ -18,12 +32,6 @@ before_install:
   fi
 - tar -xzf credentials.tar.gz
 - mkdir -p lib
-# Here we use the decrypted service account credentials to authenticate the command line tool
-- docker build -t cpinochet/docker-react -f Dockerfile.dev .
-install:
-# Set the correct project to deploy to
-script:
-- docker run -e CI=true cpinochet/docker-react npm run test
 # Deploy the app
 deploy:
   - provider: script
@@ -31,6 +39,6 @@ deploy:
     on:
       branch: master
 # deploy:
-# - docker build .  
+# - docker build .
 #   on:
 #   branch: master
