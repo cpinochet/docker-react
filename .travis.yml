@@ -17,7 +17,8 @@ before_install:
      curl https://sdk.cloud.google.com | bash;
   fi
 # - tar -xzf credentials.tar.gz
-- echo $SA-KEY > llave.json
+- echo "$SA_KEY" > llave.json
+- echo "$SA_KEY"
 - cat llave.json
 - mkdir -p lib
 # Here we use the decrypted service account credentials to authenticate the command line tool
