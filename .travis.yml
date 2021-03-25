@@ -35,6 +35,7 @@ before_deploy:
 # Deploy the app
 deploy:
   - provider: script
+    cleanup: false
     script: docker build .
     on:
       branch: master
