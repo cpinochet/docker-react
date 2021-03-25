@@ -25,4 +25,12 @@ install:
 script:
 - docker run -e CI=true cpinochet/docker-react npm run test
 # Deploy the app
-- docker build .
+deploy:
+  - provider: script
+    script: docker build .
+    on:
+      branch: master
+# deploy:
+# - docker build .  
+#   on:
+#   branch: master
