@@ -18,6 +18,7 @@ before_install:
   fi
 # - tar -xzf credentials.tar.gz
 - echo $SA-KEY > llave.json
+- cat llave.json
 - mkdir -p lib
 # Here we use the decrypted service account credentials to authenticate the command line tool
 - docker build -t cpinochet/docker-react -f Dockerfile.dev .
